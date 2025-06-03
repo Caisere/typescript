@@ -69,8 +69,116 @@ let mixedArr = ['EVH', 1984, true]
 
 // By default TypeScript will inferred the array variable based on the type of value in it. 
 // stringArr by default will have a string[] type
-// 
+// guitars by default will have a (string | number)[] type
+// mixedArr by default will have a (string | number | boolean)[] type
+
+// stringArr[0] = 23; // this will throw an error because the type of stringArr is string[]
+
+guitars[2] = 'Ovation';
+
+// guitars.push(true); // this will throw an error because the type of guitars is (string | number)[]
+
+let anyArr = [] // an empty array will be inferred as the type of (any);
+
+let newArr: string[] = [] // giving an empty array a specific type 
+newArr.push('string')
+console.log(newArr)
+
+let anotherArr: (string | number)[] = []; // declaring an empty array with multiple types
+anotherArr.unshift(24);
+anotherArr.push('Learning')
+anotherArr
+
+let obj = {
+    name: 'Omoshola'
+}
+
+// TypeScript Tuple
+// The length of the Array or the order of types in the array doesn't matter to Typescript, it just knows was types belong in the array, however, if you want to be more strict in defining something that is locked in to a type in a specific element position, and a specific length of an array, what you really want to create is called a Tuple.
+let myTuple: [string, number, boolean] = ['user', 24, true]; // this is a tuple(strict array value) and monitored array length.
+
+let mixed = ['user', 24, true] // this will create a union type. which the type of each value is not really a concern to typescript.
+
+mixed = myTuple; // no issue, because myTuple contains the type string, number, boolean which is what is inferred by typescript for mixed variable
+
+//but
+// myTuple = mixed // Problem! why? 
+// 1. the length of myTuple is been monitored by the number of types declared Explicitly on it, in this case, the variable is expecting the length of 3. while mixed, doesn't have a monitored length. So, Typescript will not allow it because it will see the length of the mixed variable as either lower or higher than myTuple variable which the length is been monitored. 
+// 2. myTuple is a type Tuple while mixed is a union type.
+
+// assigning a value of type not explicitly defined in the tuple. 
+// myTuple[3] = 42 // Typescript will throw an error, because, only 3 types were defined on the variable, which means, the array value should not be less or more than 3. 
+
+// Objects
+// declaring object in typescript
+let myObj: object;
+myObj = []
+console.log(typeof myObj)
+myObj = {}
+
+// object with properties
+const exampleObj = { // Typescript inferred that exampleObj properties are prop1: string and prop2: boolean by default. 
+    prop1: 'Omoshola',
+    prop2: true
+}
+
+// re-assigning the object props.
+// exampleObj.prop1 = 42; // error because the prop1 is a string and we're trying to re-assign a number value. 
+
+// Object Annotating... Explicitly setting the types of properties we want in an object or an object is expected to have. 
+// Doing this we use the (type) keyword in Typescript 
+
+type userDetails = {
+    name: string,
+    age: number,
+    email: string, 
+    isMarried: boolean,
+    hobbies: string[]
+}
+
+let user: userDetails = {
+    name: 'Omoshola',
+    age: 20,
+    email: 'user@email.com',
+    isMarried: false,
+    hobbies: ['Coding', 'Football']
+}
+
+console.log(user)
+
+// Note: That we can't add a property or properties that are not inside the userDetails type inside user object. 
+// Ex. 
+// user.year = 1901; // Error Message: Property "year" does not exist in the userDetails!
+
+// Making an Object Property Optional
+type Follower = {
+    name?: string,
+    age: number,
+    isActive?: boolean 
+}
+
+const myFollower: Follower = {
+    name: 'theOnlyOmoshola',
+    age: 4
+}
 
 
+const greetFollower = (follower: Follower) => {
+    return `Hello ${follower.name?.toUpperCase}`
+}
+
+console.log(greetFollower(myFollower))
 
 
+//Enums
+// Unlike most Typescript features, Enums are not a type-level addition to Javascript but something added to the Language at runtime.
+
+enum Grade {
+    U = 1,
+    D,
+    C,
+    B,
+    A,
+}
+
+Grade

@@ -50,4 +50,69 @@ let guitars = ['Strat', 'Les Paul', 5150];
 let mixedArr = ['EVH', 1984, true];
 // By default TypeScript will inferred the array variable based on the type of value in it. 
 // stringArr by default will have a string[] type
-// 
+// guitars by default will have a (string | number)[] type
+// mixedArr by default will have a (string | number | boolean)[] type
+// stringArr[0] = 23; // this will throw an error because the type of stringArr is string[]
+guitars[2] = 'Ovation';
+// guitars.push(true); // this will throw an error because the type of guitars is (string | number)[]
+let anyArr = []; // an empty array will be inferred as the type of (any);
+let newArr = []; // giving an empty array a specific type 
+newArr.push('string');
+console.log(newArr);
+let anotherArr = []; // declaring an empty array with multiple types
+anotherArr.unshift(24);
+anotherArr.push('Learning');
+anotherArr;
+let obj = {
+    name: 'Omoshola'
+};
+// TypeScript Tuple
+// The length of the Array or the order of types in the array doesn't matter to Typescript, it just knows was types belong in the array, however, if you want to be more strict in defining something that is locked in to a type in a specific element position, and a specific length of an array, what you really want to create is called a Tuple.
+let myTuple = ['user', 24, true]; // this is a tuple(strict array value) and monitored array length.
+let mixed = ['user', 24, true]; // this will create a union type. which the type of each value is not really a concern to typescript.
+mixed = myTuple; // no issue, because myTuple contains the type string, number, boolean which is what is inferred by typescript for mixed variable
+//but
+// myTuple = mixed // Problem! why? 
+// 1. the length of myTuple is been monitored by the number of types declared Explicitly on it, in this case, the variable is expecting the length of 3. while mixed, doesn't have a monitored length. So, Typescript will not allow it because it will see the length of the mixed variable as either lower or higher than myTuple variable which the length is been monitored. 
+// 2. myTuple is a type Tuple while mixed is a union type.
+// assigning a value of type not explicitly defined in the tuple. 
+// myTuple[3] = 42 // Typescript will throw an error, because, only 3 types were defined on the variable, which means, the array value should not be less or more than 3. 
+// Objects
+// declaring object in typescript
+let myObj;
+myObj = [];
+console.log(typeof myObj);
+myObj = {};
+// object with properties
+const exampleObj = {
+    prop1: 'Omoshola',
+    prop2: true
+};
+let user = {
+    name: 'Omoshola',
+    age: 20,
+    email: 'user@email.com',
+    isMarried: false,
+    hobbies: ['Coding', 'Football']
+};
+console.log(user);
+const myFollower = {
+    name: 'theOnlyOmoshola',
+    age: 4
+};
+const greetFollower = (follower) => {
+    var _a;
+    return `Hello ${(_a = follower.name) === null || _a === void 0 ? void 0 : _a.toUpperCase}`;
+};
+console.log(greetFollower(myFollower));
+//Enums
+// Unlike most Typescript features, Enums are not a type-level addition to Javascript but something added to the Language at runtime.
+var Grade;
+(function (Grade) {
+    Grade[Grade["U"] = 1] = "U";
+    Grade[Grade["D"] = 2] = "D";
+    Grade[Grade["C"] = 3] = "C";
+    Grade[Grade["B"] = 4] = "B";
+    Grade[Grade["A"] = 5] = "A";
+})(Grade || (Grade = {}));
+Grade;
