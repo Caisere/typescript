@@ -116,3 +116,30 @@ var Grade;
     Grade[Grade["A"] = 5] = "A";
 })(Grade || (Grade = {}));
 Grade;
+//Type Alias is possible with Type but it's not possible with Interface.
+// interface stringOrBoolean = string | boolean; // this is going to give an error because interface is not a type but a structure.
+// Literal Types
+let author;
+// author = 'Shola' // this will throw an error because the author variable is a literal type and can only be assigned the value 'Omoshola'
+let usersName;
+usersName = 'author'; // valid value because author is part of the usersName variable.
+// usersName = 'David' // this will throw an error because David is not part of the usersName variable.
+// Functions
+const add = (a, b) => {
+    return a + b;
+};
+// TypeScript can infer the return type of a function based on the return statement. And also, we can explicitly set the return type of a function.
+const subtract = (a, b) => {
+    return a - b;
+};
+// Function without a return statement.
+const logMgs = (message) => {
+    console.log(message);
+};
+// TypeScript can also infer the return type of a function based on the return statement. And also, we can explicitly set the return type of a function.
+// The Void Type is a type that represents the absence of a value. It is used to indicate that a function does not return a value.
+const logMgs2 = (message) => {
+    console.log(message);
+};
+logMgs2('Hello');
+logMgs2(add(2, 4));

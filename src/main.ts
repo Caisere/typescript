@@ -182,3 +182,49 @@ enum Grade {
 }
 
 Grade
+
+// Type Aliases
+type stringOrNumber = string | number;
+
+type stringOrNumberArray = (string | number)[];
+
+type newUser = {
+    name: string,
+    age: number,
+    album: stringOrNumberArray, // this is a type alias for an array of string or number
+}
+
+//Type Alias is possible with Type but it's not possible with Interface.
+
+// interface stringOrBoolean = string | boolean; // this is going to give an error because interface is not a type but a structure.
+
+// Literal Types
+let author: 'Omoshola';
+// author = 'Shola' // this will throw an error because the author variable is a literal type and can only be assigned the value 'Omoshola'
+
+let usersName: 'Omoshola' | 'Shola' | 'author';
+usersName = 'author'; // valid value because author is part of the usersName variable.
+// usersName = 'David' // this will throw an error because David is not part of the usersName variable.
+
+// Functions
+const add = (a: number, b: number) => { 
+    return a + b
+}
+// TypeScript can infer the return type of a function based on the return statement. And also, we can explicitly set the return type of a function.
+
+const subtract = (a: number, b: number): number => {
+    return a - b
+}
+
+// Function without a return statement.
+const logMgs = (message: any) => {
+    console.log(message)
+}
+// TypeScript can also infer the return type of a function based on the return statement. And also, we can explicitly set the return type of a function.
+// The Void Type is a type that represents the absence of a value. It is used to indicate that a function does not return a value.
+const logMgs2 = (message: any): void => {
+    console.log(message)
+}
+
+logMgs2('Hello')
+logMgs2(add(2,4));
