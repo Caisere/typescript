@@ -143,3 +143,30 @@ const logMgs2 = (message) => {
 };
 logMgs2('Hello');
 logMgs2(add(2, 4));
+// function with optional parameters
+function addAll(a, b, c) {
+    // the undefined of the optional parameter must be treated explicitly
+    if (c !== undefined) {
+        return a + b + c;
+    }
+    return a + b;
+}
+logMgs2(addAll(10, 5));
+logMgs2(addAll(10, 5, 2));
+// function with a default parameter
+function sumAll(a, b, c = 2) {
+    return a + b + c;
+}
+logMgs2(sumAll(20, 4)); // 26 
+// Note: when having a default value, always make sure the value comes last in the listing of parameters or treat explicitly
+//function with a default parameter value anywhere is the parameter listing
+function sumAllNum(a = 10, b, c = 5, d) {
+    return a + b + c + d;
+}
+logMgs2(sumAllNum(undefined, 10, undefined, 5)); // 30 (10 + 10 + 5 + 5)
+// Typescript function with rest (...rest) parameter
+function restParam(a, ...nums) {
+    return a + nums.reduce((acc, cur) => acc + cur, 0);
+    // notice how we didn't have to specify the type of acc and cur, because typescript will inferred their types from the nums array which is number as specified
+}
+logMgs2(restParam(10, 20, 30, 40)); // 100
