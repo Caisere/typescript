@@ -265,3 +265,21 @@ function restParam(a: number, ...nums: number[]):number {
 }
 
 logMgs2(restParam(10,20,30,40,)) // 100
+
+
+
+// Type Assertion
+type One = string;
+type Two = string | number;
+type Three = 'hello';
+
+let m: One = 'hello'
+let n = m as Two
+n = 'try',
+n = 23;
+
+let x = m as Three
+
+
+let img = document.querySelector('img') as HTMLImageElement;
+img.src = ''

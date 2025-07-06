@@ -170,3 +170,10 @@ function restParam(a, ...nums) {
     // notice how we didn't have to specify the type of acc and cur, because typescript will inferred their types from the nums array which is number as specified
 }
 logMgs2(restParam(10, 20, 30, 40)); // 100
+let m = 'hello';
+let n = m;
+n = 'try',
+    n = 23;
+let x = m;
+let img = document.querySelector('img');
+img.src = '';
