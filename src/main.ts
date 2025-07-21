@@ -281,5 +281,206 @@ n = 23;
 let x = m as Three
 
 
-let img = document.querySelector('img') as HTMLImageElement;
-img.src = ''
+// let img = document.querySelector('img') as HTMLImageElement;
+// img.src = ''
+
+
+class Coder {
+    name: string;
+    age: number;
+
+    constructor(
+        name: string, 
+        age: number
+    ) {
+        this.name = name,
+        this.age = age
+    }
+}
+
+const newCoder = new Coder('Omoshola', 34)
+console.log(newCoder)
+
+
+class Coders {
+    constructor(
+        public readonly name: string,
+        protected age: number,
+        protected instrument: string,
+    ) {
+        this.name = name,
+        this.age = age,
+        this.instrument = instrument
+    }
+
+    public getAge() {
+        console.log(`I am ${this.age}`)
+    }
+}
+
+const newCoders = new Coders('John', 34, 'Guitar')
+// console.log(newCoders.age)
+// console.log(newCoders.instrument)
+
+class Guitarist extends Coders {
+    works: string
+    constructor(name: string, age: number, instrument: string, works: string) {
+        super (name, age, instrument);
+        this.works = works
+    }
+
+    getGuitarist() {
+        console.log(`${this.name} works as a ${this.works} at the age of ${this.age}`)
+    }
+}
+
+const extClass = new Guitarist('Mark', 54, 'guitar', 'Guitarist')
+console.log(extClass)
+
+console.log(extClass.getGuitarist())
+
+///////////////////////////////////////////////
+interface Student {
+    name: string,
+    age: number,
+    classes: number[]
+}
+
+const steve: Student = {
+    name: 'Steve',
+    age: 23,
+    classes: [100, 200]
+}
+
+console.log(steve)
+
+
+// index signature
+type transactions = {
+    [index: string]: number
+}
+
+type transactionType = {
+    sales: number
+    expenses: number
+}
+type transactionsType = Record<string, number>;
+
+
+const todaysTransaction: transactionsType = {
+    sales: 50000,
+    expenses: 12000
+}
+
+// dynamic keys
+for(const transaction in todaysTransaction) {
+    console.log(`${transaction}: ${todaysTransaction[transaction]}`)
+}
+
+Object.keys(todaysTransaction).map(key => console.log(key))
+
+
+// Utility Type (Record)
+// when you need an object with dynamic keys but consistent value types. An alternative to index signature
+type userKey = 'firstName' | 'lastName' | 'age' | 'GPA';
+
+const userObj: Record<userKey, string | number> = {
+    firstName: 'John',
+    lastName: 'Smith',
+    age: 34,
+    GPA: 4.15,
+}
+
+
+
+//Generics
+// 
+
+// this will take in an argument of of string and return a string as the output. 
+// Note: that stringEcho function can't be used for any other type of data type except the string type. This is what Generics Type solves in Typescript.
+const stringEcho = (arg: string): string => arg
+
+
+// making a function more general
+const echo = <T>(arg: T): T => arg
+
+const isObj = <T>(arg: T): boolean => {
+    // type checking
+    return (typeof arg === 'object' && !Array.isArray(arg) && arg !== null)
+}
+
+console.log(isObj(true))
+console.log(isObj('john'))
+console.log(isObj([1,2,3]))
+console.log(isObj({name: 'john'}))
+console.log(isObj(null))
+
+
+
+
+const isTrue = <T>(arg: T): {arg: T, is: boolean} => {
+    if(Array.isArray(arg) && !arg.length) {
+        return {arg, is: false}
+    }
+    if(isObj(arg) && Object.keys(arg as keyof T).length) {
+        return {arg, is: false}
+    }
+    return {arg, is: !!arg}
+}
+
+console.log(isTrue([1,2,3]))
+
+
+interface hasID {
+    id: number
+}
+
+const processUser = <T extends hasID>(user: T): T => {
+    return user
+}
+
+console.log(processUser({id: 1, name: 'Anonumous'}))
+// console.log(processUser({name: 'Anonumous2'}))
+
+
+
+const getUserProperties = <T extends hasID, K extends keyof T>(users: T[], key: K): T[K][] => {
+    return users.map(user => user[key])
+}
+
+// an object of T that must include an id.   // and object of K that must include the key of object T // arg of T[] key: is taken from T[properties], 
+// return of array of value of T at property K 
+/**
+ * T = {id: number, name: string, age: number, isMarried: boolean}
+ * K = {id, name, age, isMarried}
+ * 
+ */
+
+
+type Users = {
+    name: string,
+    id: number,
+    email: string,
+    phoneNumber: number,
+}
+
+
+const usersDetails: Users[] = [
+    {
+        name: 'Dave',
+        id: 1,
+        email: 'dave@gmail.com',
+        phoneNumber: 352234255425
+    },
+    {
+        name: 'John',
+        id: 2,
+        email: 'john123@gmail.com',
+        phoneNumber: 245758846838
+    }
+]
+
+console.log(getUserProperties(usersDetails, 'email'))
+console.log(getUserProperties(usersDetails, 'name'))
+console.log(getUserProperties(usersDetails, 'phoneNumber'))
+console.log(getUserProperties(usersDetails, 'id'))
