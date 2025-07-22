@@ -484,3 +484,18 @@ console.log(getUserProperties(usersDetails, 'email'))
 console.log(getUserProperties(usersDetails, 'name'))
 console.log(getUserProperties(usersDetails, 'phoneNumber'))
 console.log(getUserProperties(usersDetails, 'id'))
+
+
+//Generics Interface
+
+interface Box<T> {
+    value: T
+}
+
+const stringBox: Box<string> = {value: 'hello'}
+const box: Box<number> = {value: 42}
+
+
+function getLenght<T extends {length: number}> (arg: T): number  {
+    return arg.length
+}
