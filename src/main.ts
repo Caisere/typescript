@@ -496,6 +496,13 @@ const stringBox: Box<string> = {value: 'hello'}
 const box: Box<number> = {value: 42}
 
 
-function getLenght<T extends {length: number}> (arg: T): number  {
+
+
+// Contraist (extends)
+function getLength<T extends {length: number}> (arg: T): number {
     return arg.length
 }
+
+console.log(getLength('hello'))
+console.log(getLength([1,2,3,4,5,]))
+// console.log(getLength(42))
